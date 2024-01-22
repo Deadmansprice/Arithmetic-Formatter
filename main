@@ -1,0 +1,81 @@
+import os
+class arithmeticCalculation:
+  def __init__(self):
+    print('Setting up calculations')
+    self.ac = arithmeticCalculation  #shortens the name for the class.
+    self.number_problem = 0  #For initial
+    self.arithmetic_arranger = []
+
+  def arithmeticCalculate(self):
+    while True:  #Max is 5 problems.
+      self.number_problem += 1  #counter to 5
+      if self.number_problem == 6:
+        print("You have reached the maximum number of problems. Exiting.")
+        break
+      self.first_number = input("Put in your first number:\n")
+      #User inputs below for numbers
+      if len(self.first_number) > 4 and self.first_number.isdigit():  #Makes sure no more than 4 characters are allowed.
+        print("Restarting as your input is not accepted (either more than 4 numbers, or added other inputs other than numbers)")
+        self.number_problem -= 1
+        continue
+      else:
+        self.first_number = int(self.first_number)
+      self.second_number = input("Put in your second number:\n")
+      if len(self.second_number) > 4 and self.second_number.isdigit():
+        print("Restarting as your input is not accepted (either more than 4 numbers, or added other inputs other than numbers)")
+        self.number_problem -= 1
+        continue
+      else:
+        self.second_number = int(self.second_number)
+
+      #operator set up.
+      self.calculation_operation = str(
+          input("Please put in '+' for plus, or '-' for minus only:\n"))
+      if self.calculation_operation == "+":
+        self.calculation_operation = '+'
+        self.result = self.first_number + self.second_number
+      elif self.calculation_operation == "-":
+        self.calculation_operation = '-'
+        self.result = self.first_number - self.second_number
+      else:
+        print("Other operators other than '+' and '-' are not accepted")
+        break
+      os.system("cls") #Replace with ("clear") if using Replit or any other online compilers, otherwise "cls" is for windows system
+      print(f'problem {self.number_problem} has been aded to the list')
+      self.arithmetic_arranger.append(
+          [self.first_number, self.calculation_operation, self.second_number, self.result])
+      continue_or_not = input("Stop? 'y' for Yes, otherwise hit enter to continue:\n")
+      if continue_or_not.strip().lower() == "y":
+        print('Exiting')
+        break
+      else:
+        print('Continuing')
+        continue
+
+  #For printing the output below.
+  def calculation_output(self):
+    results = ["", "", "", ""]
+    for first_no, op, second_no, result in self.arithmetic_arranger:
+        results[0] += (str(first_no).rjust(6))+ "    "
+        results[1] += (f"{op} {str(second_no).rjust(4)}")+ "    "
+        results[2] += ("------    ")
+        results[3] += (str(result).rjust(6))+ "    "
+
+    for result in results:
+        print(result)
+
+class arithmeticArranger:
+  def __init__(self):
+    ac = arithmeticCalculation()
+    calculate_input = input(
+        'Are you ready to start calculating? "y" for yes. "n" for no only:\n')
+    if calculate_input.strip().lower() == "y":
+      ac.arithmeticCalculate()
+      ac.calculation_output()
+    elif calculate_input.strip().lower() == "n":
+      print('Exiting')
+    else: 
+      print('Other inputs detected. Exiting')
+      exit()
+      
+arithmeticArranger()
